@@ -1,4 +1,4 @@
-export default function Navbar(){
+export default function Navbar({onOpen}){
     return (
         <>
         <div className="navbar bg-base-100">
@@ -12,7 +12,8 @@ export default function Navbar(){
             </div>
         </div>
         <div className="navbar-end">
-          <a className="btn btn-primary">Button</a>
+          <a className="btn btn-primary" onClick={onOpen}>Adicionar Cliente</a>
+         
         </div>
       </div>
     </>

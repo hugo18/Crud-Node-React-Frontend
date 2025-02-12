@@ -1,7 +1,7 @@
-export default function TableList(){
-    const clients = [{id: 1, name: "João da Silva", email:"joaoSilva@gmail.com", job:"Dev", rate:"100", isActive:true},
-        {id: 2, name: "Pedro da Silva", email:"pedroSilva@gmail.com", job:"Dev1", rate:"101", isActive:true},        
-        {id: 3, name: "Gabriel da Silva", email:"gabrielSilva@gmail.com", job:"Dev2", rate:"102", isActive:false}
+export default function TableList({handleOpen}){
+    const clients = [{id: 1, name: 'João da Silva', email:'joaoSilva@gmail.com', job:'Dev', rate:'100', isActive:true},
+        {id: 2, name: 'Pedro da Silva', email:'pedroSilva@gmail.com', job:'Dev1', rate:'101', isActive:true},        
+        {id: 3, name: 'Gabriel da Silva', email:'gabrielSilva@gmail.com', job:'Dev2', rate:'102', isActive:false}
     ]
     
     return (
@@ -35,12 +35,12 @@ export default function TableList(){
                     </button>
                  </td>
                  <td>
-                    <button className={"btn btn-primary"}>
+                    <button className="btn btn-primary" onClick={() => handleOpen('edit')}>
                         Atualizar
                     </button>
                  </td>
                  <td>
-                    <button className={"btn btn-secondary"}>
+                    <button className="btn btn-secondary">
                         Apagar
                     </button>
                  </td>   
