@@ -1,6 +1,6 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
-export default function ModalForm({isOpen, onClose, modal, onSubimit}){
+export default function ModalForm({isOpen, onClose, modal, onSubmit, clientData}){
     const [rate, setRate] = useState('');
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -11,10 +11,44 @@ export default function ModalForm({isOpen, onClose, modal, onSubimit}){
         setStatus(e.target.value === 'Ativo');
     };
    
-    const handleSubimit = (e) => {
+    const handleSubimit = async (e) => {
         e.preventDefault();
+        try {
+            const clientData1 = {name, email, job, rate: Number(rate) , isactive: status};
+            await onSubmit(clientData1);
+        }catch(err){
+            console.error('Erro ao adicionar cliente', err);
+        }
+        /*
+        setName('');
+        setEmail('');
+        setJob('');
+        setRate('');
+        setStatus(false);
+        
+        */    
         onClose();
     }; 
+
+    useEffect(() => {
+        if (modal === 'edit' && clientData) {
+            setName(clientData.name);
+            setEmail(clientData.email);
+            setJob(clientData.job);
+            setRate(clientData.rate.toString());
+            setStatus(clientData.isactive); // Assuming isActive is a boolean
+        } else {
+            // Reset fields when adding a new client
+            setName('');
+            setEmail('');
+            setJob('');
+            setRate('');
+            setStatus(false);
+        }
+    }, [modal, clientData]);
+
+
+
     return (
         <>
         {/* You can open the modal using document.getElementById('ID').showModal() method */}
@@ -46,12 +80,9 @@ export default function ModalForm({isOpen, onClose, modal, onSubimit}){
                         <option>Inativo</option>
                     </select>
                 </div>
-
-                {/* if there is a button in form, it will close the modal */}
-                <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={onClose}>✕</button>
                 <button className = "btn btn-success">{modal === 'edit'? 'Salvar mudanças': 'Adicionar Cliente'}</button>
             </form>
-           
+            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={onClose}>✕</button>
            
         </div>
         </dialog>
